@@ -38,3 +38,19 @@ export const deleteExperience = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const updateExperience = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, company, startDate, endDate, description } = req.body;
+    const updatedExperience = await Experience.findByIdAndUpdate(
+      id,
+      { title, company, startDate, endDate, description },
+      { new: true }
+    );
+    return res.status(200).json(updatedExperience);
+  } catch (error) {
+    console.log("error updating experience", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};

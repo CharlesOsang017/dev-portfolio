@@ -6,6 +6,7 @@ import {
   createExperience,
   allExperience,
   deleteExperience,
+  updateExperience
 } from "../controllers/experience.controller.js";
 import { z } from "zod";
 
@@ -24,5 +25,13 @@ router.delete(
   validateRequest({ params: z.object({ id: z.string() }) }),
   deleteExperience
 );
-
+router.put(
+  "/:id",
+  authMiddleware,
+  validateRequest({
+    params: z.object({ id: z.string() }),
+    body: experienceSchema,
+  }),
+  updateExperience
+);
 export default router;
