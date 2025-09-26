@@ -1,9 +1,13 @@
 import express from "express";
 import { authMiddleware } from "../middleware/auth.middleware.js";
-import { createNewSkill, allSkills } from "../controllers/skill.controller.js";
+import {
+  createNewSkill,
+  allSkills,
+  deleteSkill,
+} from "../controllers/skill.controller.js";
 import { validateRequest } from "zod-express-middleware/lib/index.js";
 import { skillsSchema } from "../libs/validate-schema.js";
-
+import { z } from "zod";
 const router = express.Router();
 
 router.post(
@@ -13,5 +17,11 @@ router.post(
   createNewSkill
 );
 router.get("/", allSkills);
+router.delete(
+  "/:id",
+  authMiddleware,
+  validateRequest({ params: z.object({ id: z.string() }) }),
+  deleteSkill
+);
 
 export default router;
