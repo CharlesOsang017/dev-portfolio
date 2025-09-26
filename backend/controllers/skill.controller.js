@@ -8,9 +8,20 @@ export const createNewSkill = async(req, res)=>{
             percentage,
             category
         })
+        await newSkill.save()
         return res.status(201).json({message: "Skill created successfully"})
     } catch (error) {
         console.log("error creating new skill", error.message)
+        return res.status(500).json({message: error.message})
+    }
+}
+
+export const allSkills = async(req, res)=>{
+    try {
+        const allSkills = await Skill.find({})
+        return res.status(200).json(allSkills)
+    } catch (error) {
+        console.log("error getting all skills", error.message)
         return res.status(500).json({message: error.message})
     }
 }
