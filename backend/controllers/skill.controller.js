@@ -36,3 +36,19 @@ export const deleteSkill = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const updateSkill = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, percentage, category } = req.body;
+    const updatedSkill = await Skill.findByIdAndUpdate(
+      id,
+      { title, percentage, category },
+      { new: true }
+    );
+    return res.status(200).json(updatedSkill);
+  } catch (error) {
+    console.log("error updating skill", error.message);
+    return res.status(500).json({ message: error.message });
+  }
+};

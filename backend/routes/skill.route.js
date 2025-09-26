@@ -4,6 +4,7 @@ import {
   createNewSkill,
   allSkills,
   deleteSkill,
+  updateSkill
 } from "../controllers/skill.controller.js";
 import { validateRequest } from "zod-express-middleware/lib/index.js";
 import { skillsSchema } from "../libs/validate-schema.js";
@@ -22,6 +23,13 @@ router.delete(
   authMiddleware,
   validateRequest({ params: z.object({ id: z.string() }) }),
   deleteSkill
+);
+
+router.put(
+  "/:id",
+  authMiddleware,
+  validateRequest({ params: z.object({ id: z.string() }) }),
+  updateSkill
 );
 
 export default router;
