@@ -17,3 +17,13 @@ export const createExperience = async(req, res)=>{
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const allExperience = async(req, res)=>{
+    try {
+        const allExperience = await Experience.find({});
+        return res.status(200).json(allExperience);
+    } catch (error) {
+        console.log("error getting all experience", error.message);
+        return res.status(500).json({ message: error.message });
+    }
+}
