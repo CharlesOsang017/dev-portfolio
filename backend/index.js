@@ -5,6 +5,7 @@ import { connectToDB } from './config.js';
 import skillRoute from './routes/skill.route.js'
 import userRoute from './routes/user.route.js'
 import experienceRoute from './routes/experience.route.js'
+import projectRoute from './routes/project.route.js'
 
 dotenv.config()
 
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use("/api/v1/user", userRoute)
 app.use('/api/v1/skill', skillRoute)
 app.use('/api/v1/experience', experienceRoute)
+app.use('/api/v1/project', projectRoute)
 
 const port = process.env.PORT || 8000
 

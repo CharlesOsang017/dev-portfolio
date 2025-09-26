@@ -25,3 +25,10 @@ export const experienceSchema = z.object({
     endDate: z.string(),
     description: z.string().min(3, {message: 'Name must be at least 3 characters long'})    
 })
+
+export const projectSchema = z.object({
+    title: z.string().min(3, {message: 'Name must be at least 3 characters long'}),
+    description: z.string().min(3, {message: 'Name must be at least 3 characters long'}),
+    link: z.string().optional(),
+    image: z.string().optional()
+})
