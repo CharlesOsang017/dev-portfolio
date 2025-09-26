@@ -1,5 +1,13 @@
-import express from 'express'
+import express from "express";
+import { validateRequest } from "zod-express-middleware";
+import { registerAdminSchema } from "../libs/validate-schema.js";
 
-const router = express.Router()
+const router = express.Router();
 
-export default router
+router.post(
+  "/register",
+  validateRequest({ body: registerAdminSchema }),
+  createAdminUser
+);
+
+export default router;
