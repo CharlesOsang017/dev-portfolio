@@ -37,3 +37,19 @@ export const deleteProject = async(req, res)=>{
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const updateProject = async(req, res)=>{
+    try {
+        const { id } = req.params;
+        const { title, description, image, link } = req.body;
+        const updatedProject = await Project.findByIdAndUpdate(
+            id,
+            { title, description, image, link },
+            { new: true }
+        );
+        return res.status(200).json(updatedProject);
+    } catch (error) {
+        console.log("error updating project", error.message);
+        return res.status(500).json({ message: error.message });
+    }
+}
