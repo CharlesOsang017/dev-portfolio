@@ -17,7 +17,7 @@ app.use(express.json())
 
 // routes
 app.use("/api/v1/user", userRoute)
-app.use('/api/v1/skills', skillRoute)
+app.use('/api/v1/skill', skillRoute)
 
 const port = process.env.PORT || 8000
 
