@@ -26,3 +26,14 @@ export const getProjects = async(req, res)=>{
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const deleteProject = async(req, res)=>{
+    try {
+        const { id } = req.params;
+        await Project.findByIdAndDelete(id);
+        return res.status(200).json({ message: "Project deleted successfully" });
+    } catch (error) {
+        console.log("error deleting project", error.message);
+        return res.status(500).json({ message: error.message });
+    }
+}
