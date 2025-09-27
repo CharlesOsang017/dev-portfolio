@@ -1,5 +1,5 @@
 "use client";
-// import { signUpSchema } from "@/lib/schema";
+// import { LoginSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,39 +23,37 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 // import { useSignUpMutation } from "@/hooks/use-auth";
 import { toast } from "sonner";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Router } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
-import { signUpSchema } from "@/lib/schemas";
-import { useSignUpMutation } from "@/hooks/useAuth";
+import { loginSchema, signUpSchema } from "@/lib/schemas";
+import { useLoginMutation, useSignUpMutation } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
-export type SignUpFormData = z.infer<typeof signUpSchema>;
+export type LoginFormData = z.infer<typeof loginSchema>;
 const Login = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
 
-  const form = useForm<SignUpFormData>({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      name: "",
+    const router = useRouter()
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {   
       email: "",
-      password: "",
-      confirmPassword: "",
+      password: "",    
     },
   });
 
-  const { mutate, isPending } = useSignUpMutation();
+  const { mutate, isPending } = useLoginMutation();
 
-  const handleOnSubmit = (values: SignUpFormData) => {
+  const handleOnSubmit = (values: LoginFormData) => {
     mutate(values, {
       onSuccess: () => {
-        toast.success("Email Verification Required", {
-          description:
-            "Please check your email to verify your account. If you haven't received the email, please check your spam folder.",
-        });
+        toast.success("Logged in successfully");
         form.reset();
-        // navigate("/sign-in");
+        router.push("/");
       },
       onError: (error: any) => {
         const errorMessage = error?.response?.data?.message;

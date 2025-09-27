@@ -7,3 +7,9 @@ export const useSignUpMutation = () => {
         mutationFn: (data: SignUpFormData) => postData("/user/register", data)
     })
 }
+
+export const useLoginMutation = ()=>{
+    return useMutation({
+        mutationFn: (data: any) => postData("/user/login", data)
+    })
+}
