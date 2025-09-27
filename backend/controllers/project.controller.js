@@ -2,10 +2,11 @@ import Project from "../models/project.model.js";
 
 export const createNewProject = async(req, res)=>{
     try {
-        const { title, description, image, link } = req.body;
+        const { title, description, technologies, image, link } = req.body;
         const newProject = await Project.create({
             title,
             description,
+            technologies,
             image,
             link
         });
@@ -41,10 +42,10 @@ export const deleteProject = async(req, res)=>{
 export const updateProject = async(req, res)=>{
     try {
         const { id } = req.params;
-        const { title, description, image, link } = req.body;
+        const { title, description, technologies, image, link } = req.body;
         const updatedProject = await Project.findByIdAndUpdate(
             id,
-            { title, description, image, link },
+            { title, description, technologies, image, link },
             { new: true }
         );
         return res.status(200).json(updatedProject);
